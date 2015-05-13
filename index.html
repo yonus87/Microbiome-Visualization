@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sequences sunburst- Microbiome</title>
+    <script src="js/d3/d3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/sequences.css"/>
+  </head>
+  <body>
+    <div id="sequence"></div>
+	<div id="main">      
+      <div id="chart">
+        <div id="explanation" style="visibility: hidden;">
+          <span id="percentage"></span><br/>
+          of above species are in the microbiome.
+        </div>
+      </div>
+    </div>
+    <div id="sidebar" style="padding-top:10px;text-align:center;">
+      <font size="5"><u>Legend</u></font>
+      <div id="legend"></div>
+    </div>
+    <script type="text/javascript" src="js/sequences.js"></script>
+    <script type="text/javascript">
+      // Hack to make this example display correctly in an iframe on bl.ocks.org
+      d3.select(self.frameElement).style("height", "700px");
+  </script> 
+  </body>
+</html>
