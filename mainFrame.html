@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sequences Sunburst- Microbiome by various diet type</title>
+    <script src="js/d3/d3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/sequences.css"/>
+	<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <!-- <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
+	<script type="text/javascript">
+	  var dataFile = "data/Diet-0.csv";	  
+	</script>
+  </head>
+  <body>
+    <div style="height:85px;width:100%">
+	  <div style="text-align:center;"><font size="8">Microbiome Visualization</font></div>
+	  <font size="3">Select a "Diet" type </font> <span style="padding:3px;"></span>
+      <select id="drop">
+	  <option selected="selected" value="data/Diet-X.csv">All</option>
+      <option value="data/Diet-0.csv">0 - LFPP</option>
+      <option value="data/Diet-1.csv">1 - Western</option>
+      <option value="data/Diet-2.csv">2 - CARBR</option>
+      <option value="data/Diet-3.csv">3 - FATR</option>
+      <option value="data/Diet-4.csv">4 - Suckling</option>
+	  <option value="data/Diet-5.csv">5 - Human</option>
+      </select>	     
+	</div>
+	<div style="align:center;text-align:center;">
+	  <iframe id="frame" src="index.html?id=data/Diet-X.csv" width="1200" height="100%" scrolling="no">
+      </iframe>
+    </div>	
+	<script type="text/javascript">
+	$(document).ready(function(){
+	   var iframe = $('#frame');
+	   $('#drop').change(function() {
+	     var selOption = $('#drop option:selected').val();
+         iframe.attr('src',"index.html?id="+selOption);
+		
+        });
+	  });
+	</script>	
+  </body>
+</html>

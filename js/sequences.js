@@ -1,124 +1,3 @@
-// Dimensions of sunburst.
-var width = 750;
-var height = 600;
-var radius = Math.min(width, height) / 2;
-
-// Breadcrumb dimensions: width, height, spacing, width of tip/tail.
-var b = {
-  w: 195, h: 25, s: 3, t: 5
-};
-var legend_dict = {
- "Kingdom": "#5687d1",
- "Phylum": "#7b615c",
- "Class": "#de783b",
- "Order": "#6ab975",
- "Family": "#a173d1",
- "Genus":  "#bbbbbf",
- "Species": "#3fd21c"
-}
-// Mapping of step names to colors.
-var colors = {
-  "Bacteria": "#5687d1",  
-  
-  "Acidobacteria": "#7b615c",
-  "Actinobacteria": "#7b615c",
-  "Bacteroidetes": "#7b615c",
-  "Cyanobacteria": "#7b615c",
-  "Deferribacteres": "#7b615c",
-  "Deinococcus-Thermus": "#7b615c",
-  "Fibrobacteres": "#7b615c",
-  "Firmicutes": "#7b615c",
-  "Fusobacteria": "#7b615c",
-  "Gemmatimonadetes": "#7b615c",
-  "Lentisphaerae": "#7b615c",
-  "OD1": "#7b615c",
-  "Planctomycetes": "#7b615c",
-  "Proteobacteria": "#7b615c",
-  "Tenericutes": "#7b615c",
-  "TM7": "#7b615c",
-  "Verrucomicrobia": "#7b615c",
-    
-  "Clostridia": "#de783b",
-  "Bacteroidetes": "#de783b",
-  "Erysipelotrichi": "#de783b",
-  "Fibrobacteres": "#de783b",
-  "Bacilli": "#de783b",
-  "Actinobacteria": "#de783b",
-  "Alphaproteobacteria": "#de783b",
-  "Verrucomicrobiae":"#de783b",
-  
-  "Clostridiales": "#6ab975",
-  "Lactobacillales": "#6ab975",
-  "Bacteroidales": "#6ab975",
-  "Bacillales": "#6ab975",
-  "Rhizobiales": "#6ab975",
-  "Lactobacillales": "#6ab975",
-  "Erysipelotrichales": "#6ab975",
-  "Acidobacteriales": "#6ab975",
-  "Actinobacteridae": "#6ab975",
-  "Clostridiales": "#6ab975",
-  "Coriobacteridae": "#6ab975",
-  "Sphingomonadales": "#6ab975",
-  "Verrucomicrobiales": "#6ab975",
-  
-  "Ruminococcaceae": "#a173d1",
-  "Lachnospiraceae": "#a173d1",
-  "Incertae Sedis XIII": "#a173d1",
-  "Verrucomicrobiaceae": "#a173d1",
-  "Erysipelotrichaceae": "#a173d1",
-  "Coriobacteriales": "#a173d1",
-  "Enterococcaceae": "#a173d1",
-  "Bacteroidaceae": "#a173d1",
-  "Enterobacteriaceae": "#a173d1",
-  "Sphingomonadaceae": "#a173d1",
-  "Sphingobacteriaceae": "#a173d1",
-  "Rikenellaceae": "#a173d1",
-  "Bifidobacteriales": "#a173d1",
-  "Prevotellaceae": "#a173d1",
-  "Porphyromonadaceae": "#a173d1",
-  "Actinomycetales": "#a173d1",
-  "Carnobacteriaceae": "#a173d1",
-  "Bacillaceae": "#a173d1",
-  "Lactobacillaceae": "#a173d1",
-  "Eubacteriaceae": "#a173d1",
-  
-  "Lachnospiraceae Incertae Sedis": "#bbbbbf",
-  "Coprococcus": "#bbbbbf",
-  "Coprobacillus": "#bbbbbf",
-  "Coriobacterineae": "#bbbbbf",
-  "Actinomycineae": "#bbbbbf",
-  "Micrococcineae": "#bbbbbf",
-  "Paracoccus":  "#bbbbbf",
-  "Parabacteroides": "#bbbbbf",
-  "Bacteroides": "#bbbbbf",
-  "Bifidobacteriaceae": "#bbbbbf",
-  "Enterococcus": "#bbbbbf",
-  "Faecalibacterium": "#bbbbbf",
-  "Erysipelotrichaceae Incertae Sedis": "#bbbbbf",
-  "Anaerostipes": "#bbbbbf",
-  "Alistipes": "#bbbbbf",
-  "Streptococcus": "#bbbbbf",
-  "Sphingomonas": "#bbbbbf",
-  "Anaerotruncus":  "#bbbbbf",
-  "Carnobacteriaceae 1": "#bbbbbf",
-  "Akkermansia": "#bbbbbf",
-  "Anaerofustis": "#bbbbbf",
-  "Lactobacillus": "#bbbbbf",
-  "Anaerovorax": "#bbbbbf",
-  "Bryantella": "#bbbbbf",
-  
-  "Coriobacteriaceae": "#3fd21c",
-  "Corynebacteriaceae": "#3fd21c",
-  "Atopostipes": "#3fd21c",
-  "Intrasporangiaceae": "#3fd21c",
-  "Bifidobacterium": "#3fd21c",
-  "Actinomycetaceae": "#3fd21c" 
-  
-};
-
-// Total size of all segments; we set this later, after loading the data.
-var totalSize = 0; 
-
 var vis = d3.select("#chart").append("svg:svg")
     .attr("width", width)
     .attr("height", height)
@@ -144,13 +23,6 @@ d3.text(dataFile, function(text) {
   createVisualization(json);
 });
 
-function updateData(inputFile){
-  d3.text(inputFile, function(text) {
-  var csv = d3.csv.parseRows(text);
-  var json = buildHierarchy(csv);
-  createVisualization(json);
-});
-}
 // Main function to draw and set up the visualization, once we have the data.
 function createVisualization(json) {
 
@@ -171,7 +43,7 @@ function createVisualization(json) {
       return (d.dx > 0.005); // 0.005 radians = 0.29 degrees
       });
 
-  var path = vis.data([json]).selectAll("path")
+  path = vis.data([json]).selectAll("path")
       .data(nodes)
       .enter().append("svg:path")
       .attr("display", function(d) { return d.depth ? null : "none"; })
